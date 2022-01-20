@@ -1,26 +1,24 @@
-const express = require("express");
-const database = require("../database/connect_db")
-
-const profileRoutes = express.Router();
+const express = require('express');
+const profilesRouter = express.Router();
+const client = require("../database/connect_db")   
 
 // This is for getting the list of profiles available
-profileRoutes.route("/api/profile/").post((req, res) => {
-    res.send("Testing to see if we made it");
+profilesRouter.get("/get-profile", (req, res) => {
+    res.send("testing to see if can get profiles");
 });
 
 // This is for adding profiles
-profileRoutes.route("/api/profile/add-profile").post((req, res) => {
-    let profileDatabase = database.getDb("DaSpot").collection("profiles");
-    profileDatabase.insertOne(req, (err) => {
-        if(err) {
-            console.error(err);
-            res.status(400).send("Error adding profile!");
-        }
-    });
-
-    database.close(); //THIS MIGHT GIVE AN ERROR
+profilesRouter.post("/add-profile", async (req, res) => {
+    // inserting one document(which is a row in a table for mongodb)
+    try {
+        await client.db("Database").collection("Profiles").insertOne({
+            Username: "FirstUser",
+            Password: "Testing",
+        });
+    }
+    catch(err) {
+        console.error(err);
+    }
 });
 
-
-
-module.exports = profileRoutes;
+module.exports = profilesRouter;

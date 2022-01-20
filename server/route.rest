@@ -1,0 +1,8 @@
+#TESTING IF API IS WORKING
+#GET http://localhost:5000/
+
+
+
+# Adding a profile
+#POST http://localhost:5000/profile/add-profile/
+
