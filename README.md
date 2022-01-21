@@ -13,3 +13,8 @@ Run "npm start"
 Open Terminal
 Run "cd server"
 Run "nodemon server.js"
+
+# Instructions To Test APIs:
+Use the route.test file which runs the REST client VSCode extension
+Add API calls in there
+Click send request
