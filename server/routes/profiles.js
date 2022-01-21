@@ -2,23 +2,56 @@ const express = require('express');
 const profilesRouter = express.Router();
 const client = require("../database/connect_db")   
 
-// This is for getting the list of profiles available
-profilesRouter.get("/get-profile", (req, res) => {
-    res.send("testing to see if can get profiles");
-});
-
-// This is for adding profiles
-profilesRouter.post("/add-profile", async (req, res) => {
-    // inserting one document(which is a row in a table for mongodb)
+// This getting the profile
+profilesRouter.get("/get-profile/", async (req, res) => {
     try {
-        await client.db("Database").collection("Profiles").insertOne({
-            Username: "FirstUser",
-            Password: "Testing",
-        });
+        const userData = await client.db("Database").collection("Profiles").findOne({Username: req.body.Username});
+        res.json(userData);
     }
     catch(err) {
         console.error(err);
     }
 });
+
+
+// This is for adding profiles
+profilesRouter.post("/add-profile/", async (req, res) => {
+    try {
+        await client.db("Database").collection("Profiles").insertOne({
+            Username: req.body.Username,
+            Password: req.body.Password
+        });
+        res.send(`${req.body.Username} has been created!`);
+    }
+    catch(err) {
+        console.error(err);
+    }
+});
+
+
+// This is for deleting profiles
+profilesRouter.delete("/delete-profile/", async (req, res) => {
+    try {
+        let oldProfileName = req.body.Username;
+        const userData = await client.db("Database").collection("Profiles").deleteOne({Username: req.body.Username});
+        res.send(`${oldProfileName} has been deleted!`);
+    }
+    catch(err) {
+        console.error(err);
+    }
+});
+
+
+// This is for updating profiles
+profilesRouter.patch("/update-profile/", async (req, res) => {
+    // update one document
+    try {
+        const userData = await client.db("Database").collection("Profiles").updateOne({Username: req.body.Username}, {$set: {Password: req.body.Password}});
+    }
+    catch(err) {
+        console.error(err);
+    }
+});
+
 
 module.exports = profilesRouter;

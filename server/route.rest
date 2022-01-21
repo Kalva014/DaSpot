@@ -3,6 +3,42 @@
 
 
 
-# Adding a profile
-#POST http://localhost:5000/profile/add-profile/
+# Getting a profile
+#GET http://localhost:5000/profile/get-profile/ 
+#Content-Type: application/json
 
+#{
+#    "Username": "FirstUser"
+#}
+
+
+
+# Adding a profile
+#POST http://localhost:5000/profile/add-profile/ 
+#Content-Type: application/json
+
+#{
+#    "Username": "Newuser",
+#    "Password": "Newpassword"
+#}
+
+
+
+# Deleting a profile
+#Delete http://localhost:5000/profile/delete-profile/ 
+#Content-Type: application/json
+
+#{
+#    "Username": "Newuser"
+#}
+
+
+
+# Updating a profile
+PATCH http://localhost:5000/profile/update-profile/
+Content-Type: application/json
+
+{
+    "Username": "FirstUser",
+    "Password": "UpdatedPassword"
+}

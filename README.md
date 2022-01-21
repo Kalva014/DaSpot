@@ -12,4 +12,4 @@ Run "npm start"
 # Instructions On How To Run Backend:
 Open Terminal
 Run "cd server"
-Run "node server.js"
+Run "nodemon server.js"

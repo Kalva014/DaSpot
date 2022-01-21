@@ -17,44 +17,6 @@ async function main() {
   catch(err) {
     console.error(err);
   }
-  
-  // inserting one document(which is a row in a table for mongodb)
-  try {
-    await client.db("Database").collection("Profiles").insertOne({
-      Username: "FirstUser",
-      Password: "Testing",
-    });
-  }
-  catch(err) {
-    console.error(err);
-  }
-  
-  // reading one document
-  try {
-    const userData = await client.db("Database").collection("Profiles").findOne({Username: "FirstUser"});
-    console.log(userData);
-  }
-  catch(err) {
-    console.error(err);
-  }
-
-  // update one document
-  try {
-    const userData = await client.db("Database").collection("Profiles").updateOne({Username: "FirstUser"}, {$set: {Password: "Newpassword"}});
-    console.log(userData);
-  }
-  catch(err) {
-    console.error(err);
-  }
-
-  // delete one document
-  try {
-    const userData = await client.db("Database").collection("Profiles").deleteOne({Username: "FirstUser"});
-    console.log(userData);
-  }
-  catch(err) {
-    console.error(err);
-  }
 }
 
 main();
